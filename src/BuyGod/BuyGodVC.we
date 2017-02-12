@@ -113,7 +113,7 @@
         
          me.hotGodList = result;
 
-        console.log('暴热'+JSON.stringify(result));
+        // console.log('暴热'+JSON.stringify(result));
       
        },function (response) {
            

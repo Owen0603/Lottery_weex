@@ -134,7 +134,7 @@
        
          me.getLunboResult = dic;
          
-          console.log('轮播图'+JSON.stringify(dic));
+          // console.log('轮播图'+JSON.stringify(dic));
        },function (response) {
            
            me.getLunboResult = "bytes received:"+response.length;

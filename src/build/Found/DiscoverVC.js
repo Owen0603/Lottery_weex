@@ -67,8 +67,22 @@
 /* 1 */,
 /* 2 */,
 /* 3 */,
-/* 4 */,
-/* 5 */,
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = { "default": __webpack_require__(5), __esModule: true };
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var core  = __webpack_require__(6)
+	  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
+	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
+	  return $JSON.stringify.apply($JSON, arguments);
+	};
+
+/***/ },
 /* 6 */
 /***/ function(module, exports) {
 
@@ -2037,83 +2051,207 @@
 /***/ function(module, exports) {
 
 	module.exports = {
-	  "type": "div",
+	  "type": "wxc-navpage",
+	  "attr": {
+	    "dataRole": "none",
+	    "height": "88",
+	    "backgroundColor": "#da3d44",
+	    "title": "发现",
+	    "titleColor": "white"
+	  },
+	  "style": {
+	    "background": "#eee"
+	  },
 	  "children": [
 	    {
 	      "type": "div",
-	      "classList": [
-	        "twoText2"
-	      ],
 	      "children": [
 	        {
-	          "type": "image",
-	          "attr": {
-	            "src": "src/Image/user/彩金卡-@3x.png"
-	          },
-	          "classList": [
-	            "leftImage2"
-	          ]
-	        },
-	        {
 	          "type": "div",
+	          "style": {
+	            "flexDirection": "row"
+	          },
 	          "children": [
 	            {
-	              "type": "text",
+	              "type": "div",
 	              "classList": [
-	                "text1"
+	                "header1"
 	              ],
-	              "attr": {
-	                "value": "彩金卡"
-	              }
+	              "children": [
+	                {
+	                  "type": "image",
+	                  "attr": {
+	                    "src": "src/image/found/found_act.jpg"
+	                  },
+	                  "style": {
+	                    "width": 345,
+	                    "height": 150
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "classList": [
+	                    "header-bigtext"
+	                  ],
+	                  "attr": {
+	                    "value": "活动中心"
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "classList": [
+	                    "header-smalltext"
+	                  ],
+	                  "attr": {
+	                    "value": "单关配加奖"
+	                  }
+	                }
+	              ]
 	            },
 	            {
-	              "type": "text",
+	              "type": "div",
 	              "classList": [
-	                "text2"
+	                "header2"
 	              ],
-	              "attr": {
-	                "value": "查看详情"
-	              }
+	              "children": [
+	                {
+	                  "type": "image",
+	                  "attr": {
+	                    "src": "src/image/found/found_adv.jpg"
+	                  },
+	                  "style": {
+	                    "width": 345,
+	                    "height": 150
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "classList": [
+	                    "header-bigtext"
+	                  ],
+	                  "attr": {
+	                    "value": "开奖公告"
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "classList": [
+	                    "header-smalltext"
+	                  ],
+	                  "attr": {
+	                    "value": "中奖早知道"
+	                  }
+	                }
+	              ]
 	            }
 	          ]
-	        }
-	      ]
-	    },
-	    {
-	      "type": "div",
-	      "classList": [
-	        "twoText2"
-	      ],
-	      "children": [
-	        {
-	          "type": "image",
-	          "attr": {
-	            "src": "src/Image/user/彩金卡-@3x.png"
-	          },
-	          "classList": [
-	            "leftImage2"
-	          ]
 	        },
 	        {
 	          "type": "div",
+	          "classList": [
+	            "orderHead"
+	          ],
 	          "children": [
 	            {
-	              "type": "text",
-	              "classList": [
-	                "text1"
-	              ],
-	              "attr": {
-	                "value": "彩金卡"
-	              }
+	              "type": "div",
+	              "style": {
+	                "flexDirection": "row",
+	                "float": "left",
+	                "width": 630
+	              },
+	              "children": [
+	                {
+	                  "type": "text",
+	                  "style": {
+	                    "width": 10,
+	                    "height": 40,
+	                    "backgroundColor": "#da3d44",
+	                    "marginTop": 20,
+	                    "marginLeft": 20
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "style": {
+	                    "marginLeft": 20,
+	                    "fontSize": 35
+	                  },
+	                  "attr": {
+	                    "value": "晒单"
+	                  }
+	                },
+	                {
+	                  "type": "text",
+	                  "style": {
+	                    "color": "#666666",
+	                    "fontSize": 28,
+	                    "marginLeft": 20
+	                  },
+	                  "attr": {
+	                    "value": "神单聚集地，每天看个够"
+	                  }
+	                }
+	              ]
 	            },
 	            {
-	              "type": "text",
+	              "type": "div",
+	              "style": {
+	                "float": "right",
+	                "flexDirection": "row"
+	              },
+	              "children": [
+	                {
+	                  "type": "text",
+	                  "style": {
+	                    "color": "#999999",
+	                    "fontSize": 28
+	                  },
+	                  "attr": {
+	                    "value": "更多"
+	                  }
+	                },
+	                {
+	                  "type": "image",
+	                  "attr": {
+	                    "src": "src/image/common/right_arrow.png"
+	                  },
+	                  "style": {
+	                    "width": 20,
+	                    "height": 40,
+	                    "marginTop": 20,
+	                    "marginLeft": 20
+	                  }
+	                }
+	              ]
+	            }
+	          ]
+	        },
+	        {
+	          "type": "list",
+	          "classList": [
+	            "list"
+	          ],
+	          "children": [
+	            {
+	              "type": "cell",
+	              "append": "tree",
 	              "classList": [
-	                "text2"
+	                "cell"
 	              ],
-	              "attr": {
-	                "value": "查看详情"
-	              }
+	              "repeat": function () {return this.resultData},
+	              "children": [
+	                {
+	                  "type": "div",
+	                  "children": [
+	                    {
+	                      "type": "text",
+	                      "attr": {
+	                        "value": "test"
+	                      }
+	                    }
+	                  ]
+	                }
+	              ]
 	            }
 	          ]
 	        }
@@ -2126,13 +2264,52 @@
 /* 92 */
 /***/ function(module, exports) {
 
-	module.exports = {}
+	module.exports = {
+	  "header1": {
+	    "marginLeft": 20,
+	    "marginTop": 20,
+	    "marginBottom": 20
+	  },
+	  "header2": {
+	    "marginLeft": 20,
+	    "marginTop": 20
+	  },
+	  "header-bigtext": {
+	    "fontSize": 40,
+	    "color": "#FFFFFF",
+	    "position": "absolute",
+	    "zIndex": 1,
+	    "left": 20,
+	    "top": 20
+	  },
+	  "header-smalltext": {
+	    "fontSize": 28,
+	    "color": "#FFFFFF",
+	    "position": "absolute",
+	    "zIndex": 1,
+	    "left": 20,
+	    "top": 80
+	  },
+	  "orderHead": {
+	    "flexDirection": "row",
+	    "backgroundColor": "#FFFFFF",
+	    "height": 80,
+	    "lineHeight": 80,
+	    "verticalAlign": "center"
+	  }
+	}
 
 /***/ },
 /* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
+
+	var _stringify = __webpack_require__(4);
+
+	var _stringify2 = _interopRequireDefault(_stringify);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	__webpack_require__(7);
 	module.exports = {
@@ -2142,15 +2319,21 @@
 	  created: function created() {
 	    var stream = __weex_require__('@weex-module/stream');
 	    var me = this;
-	    var requestUrl = 'http://client.jiangduoduo.com/action/NewMobileHandler.ashx?cmdId=1&uuid=718CD2E2-947B-4FCD-812A-A48CF8B44D2A&cmdName=app_ios_zz&params={"ftype":"1","num":"5","fnewsid":"0","showuserId":"0"}&usertype=1&cid=10347b0be5a94524c3c5899efc5896fe&action=90321&platformVersion=10.0&platformCode=IPHONE&token=07a5862a-0a8e-406e-8ab2-ba6a0b0222aa&appVersion=3.6.3&UserID=MTQ=&sign=D10F858556B97525FE15CBAB1B6768AC';
+	    var requestUrl = 'http://client.jdd.com/action/NewMobileHandler.ashx?cmdId=1&uuid=76F7B105585844379D03B18341D2BAE1&cmdName=app_ios_zz&params={"ftype":"1","num":"5","fnewsid":"0","showuserId":"0"}&usertype=1&phoneName=Simulatorx64&action=90321&platformVersion=10.2&platformCode=IPHONE&appVersion=3.8.0&UserID=MTAzOTM2OTI=&sign=B5CB29904CDE66F2D560EB6FC242A44F';
 
 	    stream.fetch({
 	      method: 'GET',
 	      url: requestUrl,
-	      type: 'jsonp'
-	    }, function (ret) {}, function (response) {
+	      type: 'json'
+	    }, function (ret) {
 
-	      me.getLunboResult = "bytes received:" + response.length;
+	      var result = ret.data.Data;
+	      var items = result[2].SDGCTop5;
+	      console.log('测试' + (0, _stringify2.default)(items));
+	      me.resultData = items;
+	    }, function (response) {
+
+	      me.resultData = "bytes received:" + response.length;
 	    });
 	  }
 	};}

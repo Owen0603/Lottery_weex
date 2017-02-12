@@ -380,12 +380,6 @@
 
 	module.exports = function(module, exports, __weex_require__){'use strict';
 
-	var _stringify = __webpack_require__(4);
-
-	var _stringify2 = _interopRequireDefault(_stringify);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 	__webpack_require__(7);
 	module.exports = {
 	  data: function () {return {
@@ -438,8 +432,6 @@
 	      var result = ret.Data.arenahot.RtlJson;
 
 	      me.hotGodList = result;
-
-	      console.log('暴热' + (0, _stringify2.default)(result));
 	    }, function (response) {
 
 	      me.hotGodList = "bytes received:" + response.length;
@@ -474,22 +466,8 @@
 
 
 /***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = { "default": __webpack_require__(5), __esModule: true };
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var core  = __webpack_require__(6)
-	  , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
-	module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
-	  return $JSON.stringify.apply($JSON, arguments);
-	};
-
-/***/ },
+/* 4 */,
+/* 5 */,
 /* 6 */
 /***/ function(module, exports) {
 
