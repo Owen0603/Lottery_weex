@@ -1,0 +1,54 @@
+<template>
+  <div>
+     <div class="twoText2">
+	  	<image src="src/Image/user/彩金卡-@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">彩金卡</text>
+	  	    <text class="text2">查看详情</text>
+	  	</div>
+	  </div>
+	 <div class="twoText2">
+	  	<image src="src/Image/user/彩金卡-@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">彩金卡</text>
+	  	    <text class="text2">查看详情</text>
+	  	</div>
+	  </div>
+  </div>
+</template>
+
+<script>
+	require('weex-components');
+	 module.exports = {
+       data:{
+          resultData:[],
+       },
+       created:function () {
+       var stream = require('@weex-module/stream');
+       var me = this;
+       var requestUrl = 'http://client.jiangduoduo.com/action/NewMobileHandler.ashx?cmdId=1&uuid=718CD2E2-947B-4FCD-812A-A48CF8B44D2A&cmdName=app_ios_zz&params={"ftype":"1","num":"5","fnewsid":"0","showuserId":"0"}&usertype=1&cid=10347b0be5a94524c3c5899efc5896fe&action=90321&platformVersion=10.0&platformCode=IPHONE&token=07a5862a-0a8e-406e-8ab2-ba6a0b0222aa&appVersion=3.6.3&UserID=MTQ=&sign=D10F858556B97525FE15CBAB1B6768AC';
+ 
+ 
+       stream.fetch({
+         method:'GET',
+         url:requestUrl,
+         type:'jsonp'
+       },function (ret) {
+
+        // var result = ret.Data.list;
+        // console.log('测试'+JSON.stringify(ret));
+        //  me.getLunboResult = dic;
+      
+       },function (response) {
+           
+           me.getLunboResult = "bytes received:"+response.length;
+      });
+     },
+    };
+</script>
+
+<style>
+	.twoText2{
+		
+	}
+</style>

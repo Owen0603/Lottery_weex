@@ -1,0 +1,111 @@
+<template>
+
+<div style="flex-direction: column;">
+  <wxc-tabbar tab-items = {{tabItems}}></wxc-tabbar>
+</div>
+
+</template>
+
+<script>
+  require('weex-components');
+
+  module.exports = {
+    data: {
+
+      dir:'src',
+
+      tabItems: [
+          {
+              index: 0,
+              title: '购彩大厅',
+              titleColor: '#000000',
+              icon: '',
+              image: 'src/Image/tab/购彩大厅off.png',
+              selectedImage: '/src/Image/tab/购彩大厅on.png',
+              src: 'Home/HomeIndexVC.js',
+              visibility: 'visible',
+          },
+          {
+              index: 1,
+              title: '比分',
+              titleColor: '#000000',
+              icon: '',
+              image: '/src/Image/tab/bifen_off.png',
+              selectedImage: '/src/Image/tab/bifen_on.png',
+              src: 'Score/ScoreVC.js',
+              visibility: 'hidden',
+          },
+          {
+              index: 2,
+              title: '大神擂台',
+              titleColor: '#000000',
+              icon: '',
+              image: '/src/Image/tab/大神擂台off.png',
+              selectedImage: '/src/Image/tab/大神擂台on.png',
+              src: 'BuyGod/BuyGodVC.js',
+              visibility: 'hidden',
+          },
+          {
+              index: 3,
+              title: '发现',
+              titleColor: '#000000',
+              icon: '',
+              image: '/src/Image/tab/found_off.png',
+              selectedImage: '/src/Image/tab/found_on.png',
+              src: 'Found/DiscoverVC.js',
+              visibility: 'hidden',
+          },
+          {
+              index: 4,
+              title: '我的',
+              titleColor: '#000000',
+              icon: '',
+              image: '/src/Image/tab/mine_off.png',
+              selectedImage: '/src/Image/tab/mine_on.png',
+              src: 'Mine/UserCenterVC.js',
+              visibility: 'hidden',
+          },
+      ],
+    },
+    created: function () {
+        var bundleUrl = this.$getConfig().bundleUrl;
+        console.log('hit',bundleUrl);
+        var nativeBase;
+        var isAndroidAssets = bundleUrl.indexOf('file://assets/')>=0;
+        var isiOSAssets = bundleUrl.indexOf('file:///')>=0 && bundleUrl.indexOf('Weex_web.app')>0;
+        if (isAndroidAssets){
+            nativeBase = 'file://assets/';
+        }else if (isiOSAssets){
+            nativeBase = bundleUrl.substring(0, bundleUrl.lastIndexOf('/')+1);
+        }else {
+            var  host ='localhost:12580';
+            var matches = /\/\/([^\/]+?)\//.exec(this.$getConfig().bundleUrl);
+            if (matches && matches.length >= 2) {
+                host = matches[1];
+            }
+            nativeBase = 'http://' + host + '/' + this.dir + '/build/';
+        }
+        var h5Base = './' + this.dir + '/build/';
+        // in Native
+        var base = nativeBase;
+        if (typeof window === 'object') {
+            // in Browser or WebView
+            base = h5Base;
+        }
+
+        for(var i = 0; i < this.tabItems.length; i++) {
+            var tabItem = this.tabItems[i];
+            tabItem.src = base + tabItem.src;
+        }
+    },
+    methods: {
+        created: function (e) {
+            var vm = this;
+            vm.$on('tabBar.onClick',function(e){
+                var detail= e.detail;
+                nativeLog('tabBar.onClick ' + detail.index);
+            });
+        },
+    }
+  }
+</script>

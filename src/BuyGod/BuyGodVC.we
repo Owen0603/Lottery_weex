@@ -1,0 +1,186 @@
+<template>
+  <!-- 榜单 -->
+ <wxc-navpage data-role="none" height={{naviBarHeight}} background-color="#da3d44" title="大神主页" title-color="white" right-item-title="说明" right-item-color="white" style="background: #eee;">
+	<div style="height: 220;flex-direction:row; background: white;">
+	  <div style="flex:1;text-align: center;margin-top:20;" repeat="{{buttonListData}}" onclick="itemClick">
+	    <div style="margin-left:40;">
+	        <image src="{{image}}" style="width:120;height: 120;"></image>
+	    </div>
+	    <div style="margin-top:10;margin-bottom:20;">
+	        <text>{{title}}</text>
+	    </div>
+	  </div>
+    </div>
+
+	<!-- 暴热大神 -->
+	<wxc-panel title="暴热大神" type="default" style="margin-top: 20;background: white;padding: 0;">
+    <div style="flex-direction:row;">
+      <div repeat={{hotGodList}} onclick="{{itemClick}}" style="height: 200;flex:1;text-align: center;padding: 0;" >
+  	  
+         <div style="margin-left:20;">
+            <image src="{{UserFace}}" style="width:100;height: 100;border-radius: 50;"></image>
+         </div>
+         <div style="margin-top:20;">
+            <text>{{UserName}}</text>
+         </div>
+  	  </div>
+    </div>  
+	</wxc-panel>
+
+	<!-- 大神推荐 -->
+	<wxc-panel title="大神推荐" type="default" style="margin-top: 25;background: white;padding: 0;">
+	  <div repeat="{{godRecommondList}}">
+	  	<div style="flex-direction:row;margin-bottom:20;">
+	  	  <image src="{{UserFace}}" style="width:100;height: 100;border-radius: 50;background: #ccc;"></image>
+	  	  <text style="padding-top: 40;margin-left:10;flex:3;">{{UserName}}</text>
+	  	  <text style="padding-top: 40;margin-left:10;color: red;flex:1;">{{Level}}</text>
+	    </div>
+	    <!-- 单挑投注内容 -->
+	    <div repeat="{{Detail}}" style="flex-direction:row;border-color: #eee;
+		border-width: 2;padding-top:30;padding-left: 10;">
+	      <text class="lotteryContent">{{mno}}</text>
+	      <text class="lotteryContent"onclick=>{{mname}}</text>
+	      <text class="lotteryContent">{{hteam+'vs'+vteam}}</text>
+	    </div>
+	    <div style="height: 130;flex-direction:row; justify-content:space-between;">
+	  	   <!-- 原因、截止时间、跟单按钮 -->
+          <text style="margin-top:40;">{{'截止 '+BuyEndTime}}</text>
+          <wxc-button value="立即跟单" size="small" style="border-color: red;border-width:3;height: 80;width:300;font-size: 20;margin-top:20;-webkit-text-fill-color: red;" onclick="{{buyClick}}"></wxc-button>
+	    </div>
+	    <div style="height: 1;background: #ddd;width:750;margin-bottom:15;"></div>
+	  </div>
+	</wxc-panel>
+ </wxc-navpage>
+</template>
+
+<script>
+	require("weex-components");
+	module.exports = {
+       data:{
+       	naviBarHeight:88,
+        hotGodList:[],
+        godRecommondList:[],
+        buttonListData:[
+           {
+             id:1,
+             title:'实力榜',
+             image:'src/Image/god/sl@3x.png',
+           },
+           {
+             id:2,
+             title:'连红榜',
+             image:'src/Image/god/lh@3x.png',
+           },
+           {
+             id:3,
+             title:'奖励榜',
+             image:'src/Image/god/jl@3x.png'
+           },
+           {
+             id:4,
+             title:'我的擂台',
+             image:'src/Image/god/lt@3x.png',
+           },
+        ],
+       },
+       created:function () {
+       var stream = require('@weex-module/stream');
+       var me = this;
+       var hotgodUrl = 'http://client.jdd.com/action/MobileHandler.ashx?cmdId=1&uuid=76F7B105585844379D03B18341D2BAE1&cmdName=app_ios_zz&params={}&usertype=0&phoneName=Simulator x64&action=149&platformVersion=10.2&platformCode=IPHONE&appVersion=3.8.0&UserID=&sign=7536FE371DDF630DAF706275FC7C4225';
+       var godRecommondUrl = 'https://client.jdd.com/action/NewMobileHandler.ashx?cmdId=1&uuid=76F7B105585844379D03B18341D2BAE1&cmdName=app_ios_zz&params={"pageno":1,"pagesize":15}&usertype=0&phoneName=Simulator x64&action=1613&platformVersion=10.2&platformCode=IPHONE&appVersion=3.8.0&UserID=&sign=63F9BD7D2ADCDBD3603C7C3F48AB20D8';
+ 
+       this.$getConfig(function(config){
+         var env = config.env;
+         if (env.platform == 'iOS') {
+         	var scale = env.scale;
+         	var deviceWidth = env.deviceWidth/scale;
+         	this.naviBarHeight = 64.0*750.0/deviceWidth;
+         }
+       }.bind(this));
+
+       this.$on('naviBar.rightItem.click',function(e){
+          console.log('导航右边按钮点击');
+        });
+
+      //暴热大神网络请求
+       stream.fetch({
+         method:'GET',
+         url:hotgodUrl,
+         type:'jsonp'
+       },function (ret) {
+
+        var result = ret.Data.arenahot.RtlJson;
+        
+         me.hotGodList = result;
+
+        console.log('暴热'+JSON.stringify(result));
+      
+       },function (response) {
+           
+           me.hotGodList = "bytes received:"+response.length;
+       });
+       //大神推荐网络请求
+       stream.fetch({
+         method:'GET',
+         url:godRecommondUrl,
+         type:'jsonp'
+       },function (ret) {
+
+        var result = ret.Data.RtlJson;
+         me.godRecommondList = result;
+      
+       },function (response) {
+           me.godRecommondList = "bytes received:"+response.length;
+       });
+      },
+      methods:{
+      	buyClick:function(){
+      		var vm = this;
+            var params = {
+                'url':vm.baseURL+'Common/CommonWebVC.js',
+                'animated':'true',
+            }
+            console.log('地址'+params.url);
+            var navigator = require('@weex-module/navigator');
+            console.log('测试5'+navigator);
+            // navigator.push(params,function(e){
+
+            // });
+      	}
+      },
+      // created:function(){
+      // 	var bundleUrl = this.$getConfig().bundleUrl;
+      //   console.log('hit',bundleUrl);
+      //   var nativeBase;
+      //   var isAndroidAssets = bundleUrl.indexOf('file://assets/')>=0;
+      //   var isiOSAssets = bundleUrl.indexOf('file:///')>=0 && bundleUrl.indexOf('Weex_web.app')>0;
+      //   if (isAndroidAssets){
+      //       nativeBase = 'file://assets/';
+      //   }else if (isiOSAssets){
+      //       nativeBase = bundleUrl.substring(0, bundleUrl.lastIndexOf('/')+1);
+      //   }else {
+      //       var  host ='localhost:12580';
+      //       var matches = /\/\/([^\/]+?)\//.exec(this.$getConfig().bundleUrl);
+      //       if (matches && matches.length >= 2) {
+      //           host = matches[1];
+      //       }
+      //       nativeBase = 'http://' + host + '/' + this.dir + '/build/';
+      //   }
+      //   var h5Base = './index.html?page=./' + this.dir + '/build/';
+      //   // in Native
+      //   var base = nativeBase;
+      //   if (typeof window === 'object') {
+      //       // in Browser or WebView
+      //       base = h5Base;
+      //   }
+      //   this.baseURL = base;
+      // }
+	};
+</script>
+  
+<style>
+	.lotteryContent{
+		height: 60;
+		margin-right:50;
+	}
+</style>

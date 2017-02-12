@@ -1,0 +1,67 @@
+<template>
+    <image class="slider-item" src="{{imageUrl}}" onclick="click"></image>
+</template>
+
+<script>
+    require('weex-components');
+    module.exports = {
+        data:{
+            dir:'src',
+
+            imageUrl:'',
+            title:'',
+            action:[],
+            baseURL:'',
+        },
+        methods:{
+            click:function(){
+                var vm = this;
+                var params = {
+                    'url':vm.baseURL+'Common/CommonWebVC.js',
+                    'animated':'true',
+                }
+                console.log('地址'+params.url);
+                var navigator = require('@weex-module/navigator');
+                console.log('测试5'+navigator);
+                navigator.push(params,function(e){
+
+                });
+            },
+        },
+        created: function () {
+        var bundleUrl = this.$getConfig().bundleUrl;
+        console.log('hit',bundleUrl);
+        var nativeBase;
+        var isAndroidAssets = bundleUrl.indexOf('file://assets/')>=0;
+        var isiOSAssets = bundleUrl.indexOf('file:///')>=0 && bundleUrl.indexOf('Weex_web.app')>0;
+        if (isAndroidAssets){
+            nativeBase = 'file://assets/';
+        }else if (isiOSAssets){
+            nativeBase = bundleUrl.substring(0, bundleUrl.lastIndexOf('/')+1);
+        }else {
+            var  host ='localhost:12580';
+            var matches = /\/\/([^\/]+?)\//.exec(this.$getConfig().bundleUrl);
+            if (matches && matches.length >= 2) {
+                host = matches[1];
+            }
+            nativeBase = 'http://' + host + '/' + this.dir + '/build/';
+        }
+        var h5Base = './index.html?page=./' + this.dir + '/build/';
+        // in Native
+        var base = nativeBase;
+        if (typeof window === 'object') {
+            // in Browser or WebView
+            base = h5Base;
+        }
+        this.baseURL = base;
+    },
+    };
+</script>
+
+<style>
+    .slider-item{
+        width: 750px;
+        height: 420px;
+        background-color: rgb(50, 180, 70);
+    }
+</style>

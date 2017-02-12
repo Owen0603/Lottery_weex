@@ -1,0 +1,5 @@
+<template>
+  <div>
+    <text style="font-size:100px;">H比分</text>
+  </div>
+</template>

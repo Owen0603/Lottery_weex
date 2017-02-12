@@ -1,0 +1,207 @@
+<template>
+  <scroller class="body">
+    <!-- 轮播图 -->
+    <slider class="slider" append="true" interval="1000" auto-play="true">
+      <indicator class="indicator"></indicator>
+      <slider-page repeat="{{getLunboResult}}"></slider-page>
+    </slider>
+    
+
+    <!-- 所有按钮 -->
+    <div style="background: white;padding-top: 30px;padding-bottom: 30px;">
+      <div style="flex-direction:row;">
+        <div class="itemDiv" style="flex:1;flex-direction:column;" repeat="{{defaultButtonList[0]}}" onclick="itemClick">
+          <div style="margin-left:40;">
+            <image style="height: 100px;width:100px;" src={{imageUrl}}></image>
+          </div>
+          <div>
+            <text style="color: #666;font-size: 30;text-align: center;margin-top: 15;">{{name}}</text>
+          </div>
+        </div>
+      </div>
+      <div style="flex-direction:row;margin-top: 30px;">
+        <div class="itemDiv" style="flex:1;flex-direction:column;margin:0;" repeat={{defaultButtonList[1]}}>
+          <div style="margin-left:40;">
+            <image class="mainImage" style="height: 100px;width:100px;clear: both;display: block;margin: auto;" src={{imageUrl}}></image>
+          </div>
+          <div>
+            <text style="color: #666;font-size: 30;text-align: center;margin-top: 15;">{{name}}</text>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- 新闻列表 -->
+    <!-- <div style="height: 70px;margin-top:30px ;background: white;">
+      <text style="flex:1;">资讯</text>
+      <text style="flex:1;">更多</text>
+    </div> -->
+    <wxc-panel title="资讯" type="default" style="margin-bottom: 0;margin-top: 25;">
+      <wxc-list-item repeat={{getAdsListResult}} onclick="{{clicked}}" style="height: 250;padding: 0;">
+        <div style="flex-direction:row;">
+          <div>
+            <image style="width:200;height: 160;" src={{imgUrl}}></image>
+          </div>
+          <div style="margin-left:10;width:500;">
+            <div style="height: 40;">
+              <text>{{title}}</text>
+            </div>
+            <div style="margin-top:15;word-break: break-all;word-wrap: break-word;overflow: hidden;">
+              <text style="color: #999;">{{summary}}</text>
+            </div>
+            <div style="margin-top: 30;flex-direction:row; color: #999;">
+              <text>{{createTime}}</text>
+              <text style="margin-left:150;">{{'阅读 '+readCount}}</text>
+            </div>
+          </div>
+        </div>
+      </wxc-list-item>
+    </wxc-panel>
+
+  </scroller>
+</template>
+
+<script>
+  require('weex-components');
+
+  module.exports = {
+     data: {
+       getLunboResult:[],
+       getButtonListResult: 'loading...',
+       getAdsListResult:[],
+       defaultButtonList:[
+          [{
+             id:1,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片_03.png',
+             name:'大乐透',
+          },
+          {
+             id:2,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_05.png',
+             name:'双色球',
+          },
+          {
+             id:3,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_07.png',
+             name:'竞彩足球',
+          },
+          {
+             id:4,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_15.png',
+             name:'竞彩单关',
+          }],
+          [{
+             id:5,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_18.png',
+             name:'胜负彩',
+          },
+          {
+             id:6,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_26.png',
+             name:'福彩3D',
+          },
+          {
+             id:7,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片-231_34.png',
+             name:'排列3',
+          },
+          {
+             id:8,
+             imageUrl:'src/Image/LotteryButton/更多彩种-切片_03.png',
+             name:'更多彩种',
+          }]
+       ],
+     },
+     created:function () {
+       var stream = require('@weex-module/stream');
+       var me = this;
+       var GetLunbo_Url = 'http://client.jdd.com/action/NewMobileHandler.ashx?cmdId=1&uuid=76F7B105585844379D03B18341D2BAE1&cmdName=app_ios_zz&params={}&usertype=0&phoneName=Simulator%20x64&action=9006&platformVersion=10.2&platformCode=IPHONE&appVersion=3.8.0&UserID=&sign=7536FE371DDF630DAF706275FC7C4225';
+       var GetData_Url = 'http://client.jdd.com/action/NewMobileHandler.ashx?cmdId=1&uuid=76F7B105585844379D03B18341D2BAE1&cmdName=app_ios_zz&params={}&usertype=0&phoneName=Simulator x64&action=9033&platformVersion=10.2&platformCode=IPHONE&appVersion=3.8.0&UserID=&sign=7536FE371DDF630DAF706275FC7C4225';
+ 
+      //轮播图网络请求
+       stream.fetch({
+         method:'GET',
+         url:GetLunbo_Url,
+         type:'jsonp'
+       },function (ret) {
+
+        var result = ret.Data.list;
+
+        var dic = new Array();
+        result.map(function(item,index){
+            dic.push({'items':[item]});
+        });
+       
+         me.getLunboResult = dic;
+         
+          console.log('轮播图'+JSON.stringify(dic));
+       },function (response) {
+           
+           me.getLunboResult = "bytes received:"+response.length;
+      });
+
+       //列表网络请求
+       stream.fetch({
+        method:'GET',
+        url:GetData_Url,
+        type:'json'
+       },function(ret){
+         ret.data.Data.map(function(item,index){
+            if (item.ID === 68) {
+              me.getButtonListResult = item.FuncInfo;
+            }else if (item.ID===69) {
+              me.getAdsListResult = item.FuncInfo;
+              // console.log('新闻'+JSON.stringify(me.getAdsListResult));
+            }
+         });
+       },function(response){
+         
+       });
+     },
+     method:{
+       itemClick:function(e){
+          console.log('divClick:',e);
+       },
+     }
+  };
+</script>
+
+<style>
+  .body {
+    width: 750px;
+    background-color: #dddddd;
+  }
+
+  .slider {
+    flex-direction: row;
+    /*margin-left: 18;*/
+    /*margin-right: 18;*/
+    width: 750;
+    height: 420;
+  }
+
+  .indicator {
+    position: absolute;
+    width: 750;
+    height: 420;
+    top: 170;
+    left: 240;
+    itemColor: #dddddd;
+  }
+  .buttonList{
+    margin: 0;
+    padding: 0;
+    width: 750px;
+    flex-direction:row;
+    overflow: hidden;
+  }
+  .button{
+    position: relative;
+    float: left;
+    width:187px;
+    height: 187px;
+    line-height: 120px;
+    text-align: center;
+    border: 10px solid #ccc;
+  }
+</style>

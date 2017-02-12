@@ -1,0 +1,31 @@
+<template>>
+	<div>
+		<web class = "web" src="param" onpagestart="pagestart" onpagefinish="pagefinish"></web>
+	</div>
+</template>
+
+<script>
+	require('weex-components');
+	module.exports = {
+        data:{
+           param:'https://www.baidu.com/',
+        },
+        method:{
+           pagestart : function(){
+
+           },
+           onpagefinish : function(){
+
+           },
+        },
+	};
+</script>
+
+<style>
+    .web{
+    	background-color: "red";
+    	width: 750px;
+    	height: 1000px;
+    }
+
+</style>

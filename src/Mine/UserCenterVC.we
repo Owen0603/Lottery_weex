@@ -1,0 +1,223 @@
+<template>
+  <wxc-navpage data-role="none" height={{naviBarHeight}} background-color="#da3d44" title="我的彩票" title-color="white" left-item-title="客服" left-item-color="white" style="background: #eee;" right-item-src="src/Image/user/消息.png">
+  <!-- 登陆 -->
+    <div style="height: 180;background: white;flex-direction:row;padding-top:40;padding-left: 20;">
+	  	<image src="src/Image/user/user_photos.png" style="width:100;height: 100;border-radius: 50;background: #ccc;"></image>
+	  	<text style="padding-top: 40;margin-left:10;flex:3;">登陆/注册</text>
+	  	<image src="src/Image/user/jdd_jt.png" style="width:40;height: 50;border-radius: 50;margin-top:30;margin-right:30;"></image>
+	</div>
+	<!-- 充值 -->
+	<div style="background: white;">
+	   <div style="flex-direction:row;">
+	   	 <div class="lastMoney">
+	   	   <text>余额</text>
+	   	   <text>0.00 元</text>
+	   	 </div>
+	   	 <div class="lastMoney">
+	   	   <text>彩金卡</text>
+	   	   <text>0 张</text>
+	   	 </div>
+	   </div>
+	   <div class="chongzhi">
+	   	 <div class="chongzhisub">
+	   	 	<image src="src/Image/user/充值-@3x.png" class="leftImage"></image>
+	   	 	<text style="margin-top:15;margin-left:15;">充值</text>
+	   	 </div>
+	   	 <div class="chongzhisub">
+	   	 	<image src="src/Image/user/提现-@3x.png" class="leftImage"></image>
+	   	 	<text style="margin-top:15;margin-left:15;">提款</text>
+	   	 </div>
+	   </div>
+	</div>
+
+	<!-- 购彩 -->
+	<div style="flex-direction:row;">
+	  <div class="twoText2">
+	  	<image src="src/Image/user/我的订单@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">购彩记录</text>
+	  	    <text class="text2">查看全部订单</text>
+	  	</div>
+	  </div>
+	  <div class="twoText2">
+	  	<image src="src/Image/user/setting_follow@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">追号记录</text>
+	  	    <text class="text2">暂无追号</text>
+	  	</div>
+	  </div>	
+	</div>
+
+	<!-- 账户 -->
+	<div style="flex-direction:row;"> 
+	  <div class="twoText2">
+	  	<image src="src/Image/user/账户明细@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">账户明细</text>
+	  	    <text class="text2">查看资金流向</text>
+	  	</div>
+	  </div>
+	  <div class="twoText2">
+	  	<image src="src/Image/user/彩金卡-@3x.png" class="leftImage2"></image>
+	  	<div>
+	  		<text class="text1">彩金卡</text>
+	  	    <text class="text2">查看详情</text>
+	  	</div>
+	  </div>
+	</div>
+
+	<!-- 福利任务 -->
+	<div>
+	  <div style="flex:1;flex-direction:row;">
+	  	<div class="twoText2"> 
+	  	  <image src="src/Image/user/免费福利@3x.png" class="leftImage2"></image>
+	  	  <div>
+	  	  	 <text class="text1">福利任务</text>
+	  	     <text class="text2">领取福利</text>
+	  	  </div>
+	    </div>
+	    <div class="twoText2">
+	  	  <image src="src/Image/user/安全中心@3x.png" class="leftImage2"></image>
+	  	  <div>
+	  	  	 <text class="text1">安全中心</text>
+	  	     <text class="text2">资料完整</text>
+	  	  </div>
+	    </div>
+	  </div>
+	  <div style="flex:1;flex-direction:row;margin-top:0;">
+	  	<div class="twoText">
+	  	  <image src="src/Image/user/推送设置@3x.png" class="leftImage2"></image>
+	  	  <div>
+	  	  	 <text class="text1">推送设置</text>
+	  	     <text class="text2">开启中奖通知</text>
+	  	  </div>
+	    </div>
+	    <div class="twoText">
+	  	  <image src="src/Image/user/更多选项@3x.png" class="leftImage2"></image>
+	  	  <div>
+	  	  	 <text class="text1">更多选项</text>
+	  	     <text class="text2">建议反馈</text>
+	  	  </div>
+	    </div>
+	  </div>
+	</div>
+
+  </wxc-navpage>
+</template>
+
+<script>
+	require("weex-components");
+	module.exports={
+      data:{
+       	naviBarHeight:88,
+        hotGodList:[],
+        godRecommondList:[],
+        buttonListData:[
+           {
+             id:1,
+             title:'实力榜',
+             image:'src/Image/god/sl@3x.png',
+           },
+           {
+             id:2,
+             title:'连红榜',
+             image:'src/Image/god/lh@3x.png',
+           },
+           {
+             id:3,
+             title:'奖励榜',
+             image:'src/Image/god/jl@3x.png'
+           },
+           {
+             id:4,
+             title:'我的擂台',
+             image:'src/Image/god/lt@3x.png',
+           },
+        ],
+       },
+       created:function () {
+      
+         this.$getConfig(function(config){
+           var env = config.env;
+           if (env.platform == 'iOS') {
+         	  var scale = env.scale;
+         	  var deviceWidth = env.deviceWidth/scale;
+         	  this.naviBarHeight = 64.0*750.0/deviceWidth;
+            }
+           }.bind(this));
+
+       this.$on('naviBar.rightItem.click',function(e){
+          console.log('导航右边按钮点击');
+        });
+       this.$on('naviBar.leftItem.click',function(e){
+          console.log('导航左边按钮点击');
+        });
+      },
+      methods:{
+
+      }
+	};
+</script>
+
+<style>
+	.lastMoney{
+      flex:1;
+      flex-direction:row;
+      justify-content:space-between;
+      border-color: #ccc;
+      border-width: 1;
+      height: 100;
+      padding-top:30;
+      padding-left: 20;
+      padding-right: 20;
+	}
+	.leftImage{
+      width:70;
+      height: 70;
+	}
+	.leftImage2{
+      width:70;
+      height: 70;
+      margin-top: 35;
+	}
+	.text1{
+      margin-top: 30;
+      margin-left: 15;
+	}
+	.text2{
+      margin-top: 30;
+      margin-left: 15;
+      color: #aaa;
+	}
+	.chongzhi{
+       flex-direction: row;
+       height: 100;
+	}
+	.chongzhisub{
+		flex: 1;
+		flex-direction: row;
+		border-color: #ccc;
+        border-width: 1;
+        padding-top:15;
+        padding-left: 20;
+	}
+	.twoText{
+       flex-direction: row;
+       flex:1;
+       height: 150;
+       background: white;
+       padding-left: 20;
+       border-color: #ccc;
+       border-width: 1;
+	}
+	.twoText2{
+       flex-direction: row;
+       flex:1;
+       height: 150;
+       background: white;
+       padding-left: 20;
+       margin-top: 30;
+       border-color: #ccc;
+       border-width: 1;
+	}
+</style>

@@ -1,0 +1,36 @@
+<template>
+    <div class="slider-page">
+        <slider-item repeat="{{items}}"></slider-item>
+    </div>
+</template>
+
+<script>
+    module.exports = {
+        data:{
+            items:[],
+            sliderItems:[]
+        },
+        methods:{
+            // created:function () {
+            //     this.sliderItems = this.getSliderItems()
+            //     console.log('测试2'+this.sliderItems);
+            // },
+            // getSliderItems:function () {
+            //     console.log('测试3');
+            //     return this.items.map(function (item, index) {
+            //         return item;
+            //     }.bind(this));
+            // }
+        }
+    };
+</script>
+
+<style>
+    .slider-page{
+        flex-direction: row;
+        justify-content: space-between;
+
+        width: 714px;
+        height: 420px;
+    }
+</style>
