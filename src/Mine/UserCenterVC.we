@@ -1,6 +1,6 @@
 <template>
   <wxc-navpage data-role="none" height={{naviBarHeight}} background-color="#da3d44" title="我的彩票" title-color="white" left-item-title="客服" left-item-color="white" style="background: #eee;" right-item-src="src/Image/user/消息.png">
-  <!-- 登陆 -->
+    <!-- 登陆 -->
     <div style="height: 180;background: white;flex-direction:row;padding-top:40;padding-left: 20;">
 	  	<image src="src/Image/user/user_photos.png" style="width:100;height: 100;border-radius: 50;background: #ccc;"></image>
 	  	<text style="padding-top: 40;margin-left:10;flex:3;">登陆/注册</text>
